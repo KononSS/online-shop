@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+Catalog products:
+
+<div th:each="product : ${product}">
+    <a th:href="@{/user/{id}(id=${product.getProduct_id()})}"
+        th:text="${product.getTitle() + ', ' + product.getPrice()}">Product</a>
+</div>
+
+</body>
+</html>

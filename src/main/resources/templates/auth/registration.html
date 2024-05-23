@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body style="background-size: 95%; background-image: url('https://www.opensourceagenda.com/storage/media/700/a-brief-history-of-spring-spring-boot.jpg');" >
+
+<form style="margin: auto; width: 500px;" th:method="post" th:action="@{/auth/registration}" th:object="${person}">
+  <label for="username">Введите имя пользователя:</label>
+  <input type="text" th:field="*{username}" id="username">
+  <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
+  <br>
+  <label for="phone">Введите номер телефона:</label>
+  <input type="text" th:field="*{phone}" id="phone">
+  <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</div>
+  <br>
+  <label for="yearOfBirth">Год рождения:</label>
+  <input type="number" th:field="*{yearOfBirth}" id="yearOfBirth">
+  <div style="color: red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Year of birth Error</div>
+  <br>
+  <label for="password">Введите пароль:</label>
+  <input type="password" th:field="*{password}" id="password">
+  <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+  <br>
+  <input type="submit" value="Зарегистрироваться!">
+  <br>
+  <hr>
+</form>
+<form style="position: fixed; top: 10px; right: 10px;" action="/auth/login">
+  <input type="submit" value="Войти"/>
+</form>
+</body>
+</html>
