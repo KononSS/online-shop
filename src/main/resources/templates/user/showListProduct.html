@@ -5,12 +5,30 @@
     <title>Show</title>
 </head>
 <body>
-Catalog products:
+
+Поиск по названию, или категории:
+<form th:method="POST" th:action="@{/user/search}">
+    <label for="name">Введите поисковой запрос: </label>
+    <input type="text" id="name" name="name"/>
+    <br/>
+    <input type="submit" value="Искать!"/>
+</form>
+
+Каталог продуктов:
+    <div th:if="${product.isEmpty()}">
+        <span>модель не найдена</span>
+    </div>
 
 <div th:each="product : ${product}">
     <a th:href="@{/user/{id}(id=${product.getProduct_id()})}"
         th:text="${product.getTitle() + ', ' + product.getPrice()}">Product</a>
 </div>
+<form style="position: fixed; top: 10px; right: 10px;" action="/user/hello">
+    <input type="submit" value="Вернуться на главную"/>
+</form>
+<form style="position: fixed; top: 90px; right: 10px;" action="/user/basket">
+    <input type="submit" value="Корзина"/>
+</form>
 
 </body>
 </html>

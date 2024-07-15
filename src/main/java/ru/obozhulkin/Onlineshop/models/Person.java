@@ -5,6 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "Person")
@@ -29,6 +30,12 @@ public class Person {
     private String phone;
     @Column(name = "role")
     private String role;
+    @ManyToMany
+    @JoinTable(name = "Person_Product",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> basket;
+
 
 
 
@@ -37,6 +44,14 @@ public class Person {
 //        this.yearOfBirth = yearOfBirth;
 //    }
     public Person(){}
+
+    public List<Product> getBasket() {
+        return basket;
+    }
+
+    public void setBasket(List<Product> basket) {
+        this.basket = basket;
+    }
 
     public String getRole() {
         return role;

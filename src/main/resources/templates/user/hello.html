@@ -15,8 +15,13 @@ This list products for view
 <form  action="/admin/adminPage">
     <input type="submit" value="Войти в качестве администратора"/>
 </form>
+
 <form style="position: fixed; top: 10px; right: 10px;" th:action="@{/logout}" th:method="POST">
     <input type="submit" value="Выйти"/>
+</form>
+
+<form style="position: fixed; top: 90px; right: 10px;" action="/user/basket">
+    <input type="submit" value="Корзина"/>
 </form>
 
 </body>

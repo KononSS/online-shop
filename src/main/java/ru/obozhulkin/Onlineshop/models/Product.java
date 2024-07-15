@@ -2,7 +2,8 @@ package ru.obozhulkin.Onlineshop.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.awt.*;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "Product")
@@ -31,9 +32,21 @@ public class Product {
     @Column(name = "image_url")
     @NotEmpty(message = "Введите url картинки товара")
     private String image_url;
+    @ManyToMany(mappedBy = "basket")
+    private List<Person> buyers;
+
+
+    public Product(Optional<Person> byId) {}
 
     public Product() {}
 
+    public List<Person> getBuyers() {
+        return buyers;
+    }
+
+    public void setBuyers(List<Person> buyers) {
+        this.buyers = buyers;
+    }
 
     public int getProduct_id() {
         return product_id;
