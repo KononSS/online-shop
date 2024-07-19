@@ -30,10 +30,7 @@ public class Person {
     private String phone;
     @Column(name = "role")
     private String role;
-    @ManyToMany
-    @JoinTable(name = "Person_Product",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany(mappedBy = "buyers")
     private List<Product> basket;
 
 

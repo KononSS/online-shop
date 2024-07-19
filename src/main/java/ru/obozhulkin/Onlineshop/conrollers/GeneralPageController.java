@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.obozhulkin.Onlineshop.models.Person;
+import ru.obozhulkin.Onlineshop.models.Product;
 import ru.obozhulkin.Onlineshop.security.PersonDetails;
 import ru.obozhulkin.Onlineshop.services.PersonDetailsService;
 import ru.obozhulkin.Onlineshop.services.ProductDetailsService;
+
+import java.util.List;
 
 
 @Controller
@@ -37,7 +40,10 @@ public class GeneralPageController {
 
     @GetMapping("/basket")
     public String basket(Model model) {
-        model.addAttribute("product", productDetailsService.findAll());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        model.addAttribute("person", personDetailsService.findOne(personDetails.getPerson().getId()));
+        model.addAttribute("basket", personDetailsService.getProductByPersonId(personDetails.getPerson().getId()));
         return "user/basket";
     }
 
@@ -50,13 +56,14 @@ public class GeneralPageController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productDetailsService.findOne(id));
-
         return "user/showInfoProduct";
     }
-    @PatchMapping("/{id}")
-    public String addInBasket(@PathVariable("id") int id, @ModelAttribute("person") Person person){
-        personDetailsService.addBasket(id, person);
-        return "user/showInfoProduct";
+    @PostMapping("/{id}/add")
+    public String addInBasket(@PathVariable("id") int idProduct){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        productDetailsService.addBasket(personDetails.getPerson().getId(),idProduct);
+        return "redirect:user/basket";
     }
 
     @GetMapping("/showUserInfo")
