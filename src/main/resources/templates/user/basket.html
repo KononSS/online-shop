@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Basket</title>
+</head>
+<body>
+
+<!--<div th:each="product : ${basket}">-->
+<!--&lt;!&ndash;     th:href="@{/user/{id}(id=${product.getProduct_id()})}"&ndash;&gt;-->
+<!--    <a th:text="${product.getTitle() + ', ' + product.getPrice()}">Product</a>-->
+<!--</div>-->
+
+<div th:if="${basket.isEmpty()}">
+    <p>Ваша корзина пуста</p>
+    <hr/>
+</div>
+
+<div th:if="${!basket.isEmpty()}">
+    <hr/>
+    <b>Корзина:</b>
+    <br/>
+    <table th:each="product : ${basket}">
+        <tr>
+            <td>
+                <span>
+                <a th:href="@{/user/{id}(id=${product.getProduct_id()})}"
+                   th:text="${product.getTitle() + ', ' + product.getCategory_id() + ', ' + product.getPrice()}">Product</a>
+                </span>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+</div>
+
+<form style="position: fixed; top: 10px; right: 10px;" action="/user/hello">
+    <input type="submit" value="Вернуться на главную"/>
+</form>
+</body>
+</html>
