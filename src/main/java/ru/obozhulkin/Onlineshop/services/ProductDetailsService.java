@@ -38,10 +38,6 @@ public class ProductDetailsService {
         Optional<Product> foundProduct = productRepository.findById(id);
         return foundProduct.orElse(null);
     }
-    @Transactional
-    public void addBasket(int personId, int productId) {
-        productRepository.addPersonIdInTableProduct(productId,personId);
-    }
 
     public List<Product> searchByTitle(String name) {
         return productRepository.findByTitleStartingWith(name);

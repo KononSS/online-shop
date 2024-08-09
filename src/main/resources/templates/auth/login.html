@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>Login page</title>
 </head>
-<body style="background-size: 95%; background-image: url('https://www.opensourceagenda.com/storage/media/700/a-brief-history-of-spring-spring-boot.jpg');" >
+<body style="background-size: 95%; background-image: url('https://i.pinimg.com/originals/d3/00/24/d3002470717681998e394feca29d9714.png');" >
 
 <form style="margin: auto; width: 500px;" name="f" method="POST" action="/process_login">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <label for="username">Введите имя пользователя:</label>
+    <label for="username" style="color: white;">Введите имя пользователя:</label>
     <input type="text" name="username" id="username">
     <br>
-    <label for="password">Введите пароль:</label>
+    <label for="password" style="color: white;">Введите пароль:</label>
     <input type="password" name="password" id="password">
     <br>
     <input type="submit" value="Войти">

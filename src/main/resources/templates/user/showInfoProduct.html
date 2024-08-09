@@ -16,7 +16,7 @@
 <form style="position: fixed; top: 90px; right: 10px;" action="/user/basket" method="get">
     <input type="submit" value="Корзина"/>
 </form>
-<form th:method="POST" th:action="@{/user/{id}(id=${product.getProduct_id()})}" th:object="${person}">
-    <input type="submit" value="Добавить в корзину"/>
+<form th:method="Post" th:action="@{/user/{id}(id=${product.getProduct_id()})}">
+    <input type="submit" value="Добавить"/>
 </form>
 </html>

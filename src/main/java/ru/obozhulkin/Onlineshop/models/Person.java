@@ -30,7 +30,12 @@ public class Person {
     private String phone;
     @Column(name = "role")
     private String role;
-    @OneToMany(mappedBy = "buyers")
+    @ManyToMany
+    @JoinTable(
+            name="person_product",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private List<Product> basket;
 
 
@@ -48,6 +53,10 @@ public class Person {
 
     public void setBasket(List<Product> basket) {
         this.basket = basket;
+    }
+
+    public void addInBasket(Product product){
+        basket.add(product);
     }
 
     public String getRole() {

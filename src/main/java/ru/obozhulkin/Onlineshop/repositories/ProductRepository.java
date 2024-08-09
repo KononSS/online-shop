@@ -13,6 +13,5 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     Optional <Product> findByTitle(String title);
     List<Product> findByTitleStartingWith(String name);
-    @Query("update Product set buyers = :personId where product_id = :productId")
-    void addPersonIdInTableProduct(@Param("productId") int productId, @Param("personId") int personId);
+
 }

@@ -32,21 +32,24 @@ public class Product {
     @Column(name = "image_url")
     @NotEmpty(message = "Введите url картинки товара")
     private String image_url;
-    @ManyToOne
-    @JoinColumn(name = "person_id",referencedColumnName = "id")
-    private Person buyers;
+    @ManyToMany(mappedBy = "basket")
+    private List<Person> buyers;
 
 
     public Product(Optional<Person> byId) {}
 
     public Product() {}
 
-    public Person getBuyers() {
+    public List<Person> getBuyers() {
         return buyers;
     }
 
-    public void setBuyers(Person buyers) {
+    public void setBuyers(List<Person> buyers) {
         this.buyers = buyers;
+    }
+
+    public void addBuyer(Person buyer) {
+        buyers.add(buyer);
     }
 
     public int getProduct_id() {

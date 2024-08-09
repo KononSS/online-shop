@@ -58,12 +58,12 @@ public class GeneralPageController {
         model.addAttribute("product", productDetailsService.findOne(id));
         return "user/showInfoProduct";
     }
-    @PostMapping("/{id}/add")
+    @PostMapping("/{id}")
     public String addInBasket(@PathVariable("id") int idProduct){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        productDetailsService.addBasket(personDetails.getPerson().getId(),idProduct);
-        return "redirect:user/basket";
+        personDetailsService.addBasket(personDetails.getPerson().getId(),idProduct);
+        return "redirect:/user/"+idProduct;
     }
 
     @GetMapping("/showUserInfo")
