@@ -58,6 +58,9 @@ public class Person {
     public void addInBasket(Product product){
         basket.add(product);
     }
+    public void deleteInBasket(Product product){
+        basket.remove(product);
+    }
 
     public String getRole() {
         return role;

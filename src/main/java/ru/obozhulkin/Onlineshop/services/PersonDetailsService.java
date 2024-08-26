@@ -6,12 +6,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.obozhulkin.Onlineshop.exeption.ProductOutOfStockException;
 import ru.obozhulkin.Onlineshop.models.Person;
 import ru.obozhulkin.Onlineshop.models.Product;
 import ru.obozhulkin.Onlineshop.repositories.PeopleRepository;
 import ru.obozhulkin.Onlineshop.repositories.ProductRepository;
 import ru.obozhulkin.Onlineshop.security.PersonDetails;
 
+import javax.validation.constraints.Min;
 import java.util.*;
 
 
@@ -52,17 +54,28 @@ private final PeopleRepository peopleRepository;
 
     @Transactional
     public void addBasket(int personId, int productId) {
+
         Person person=peopleRepository.getById(personId);
         Product product=productRepository.getById(productId);
+        int counter= product.getQuantity();
+        counter=counter-1;
+        product.setQuantity(counter);
         person.addInBasket(product);
         product.addBuyer(person);
+    }
+
+    @Transactional
+    public void deleteProduct(int personId, int productId){
+        Person person=peopleRepository.getById(personId);
+        Product product=productRepository.getById(productId);
+        product.setQuantity(product.getQuantity()+1);
+        person.deleteInBasket(product);
     }
 
     public List<Product> getProductByPersonId(int id) {
         Optional<Person> person = peopleRepository.findById(id);
 
         if (person.isPresent()) {
-
             System.out.println(person.get().getBasket().toString());
             return person.get().getBasket();
         }

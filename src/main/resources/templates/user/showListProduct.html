@@ -1,36 +1,124 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Show</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--Поиск по названию, или категории:-->
+<!--<form th:method="POST" th:action="@{/user/search}">-->
+<!--    <label for="name">Введите поисковой запрос: </label>-->
+<!--    <input type="text" id="name" name="name"/>-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Искать!"/>-->
+<!--</form>-->
+
+<!--Каталог продуктов:-->
+<!--    <div th:if="${product.isEmpty()}">-->
+<!--        <span>модель не найдена</span>-->
+<!--    </div>-->
+
+<!--<div th:each="product : ${product}">-->
+<!--    <a th:href="@{/user/{id}(id=${product.getProduct_id()})}"-->
+<!--        th:text="${product.getTitle() + ', ' + product.getPrice()}">Product</a>-->
+<!--</div>-->
+
+<!--<form style="position: fixed; top: 10px; right: 10px;" action="/user/hello">-->
+<!--    <input type="submit" value="Вернуться на главную"/>-->
+<!--</form>-->
+
+<!--<form style="position: fixed; top: 90px; right: 10px;" action="/user/basket" method="get">-->
+<!--    <input type="submit" value="Корзина"/>-->
+<!--</form>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Show</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, bayer!</title>
 </head>
-<body>
+<body class="bg-light"
+      style="background-size: 100%; background-image: url('https://masterpiecer-images.s3.yandex.net/468a3ba662fc11efac1666e14819989e:1https://i.pinimg.com/originals/1c/db/aa/1cdbaa8026a2490c5350c9083596a13f.jpg');" >
 
-Поиск по названию, или категории:
-<form th:method="POST" th:action="@{/user/search}">
-    <label for="name">Введите поисковой запрос: </label>
-    <input type="text" id="name" name="name"/>
-    <br/>
-    <input type="submit" value="Искать!"/>
-</form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span class="navbar-brand" style="font-size: 2em;">𝔼𝕒𝕫𝕪 𝕊𝕟𝕚𝕔𝕜𝕖𝕣𝕤</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-Каталог продуктов:
-    <div th:if="${product.isEmpty()}">
-        <span>модель не найдена</span>
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user/hello">Главная<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/user/catalog">Каталог<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" href="/admin/adminPage">Админ<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Профиль</a>
+            </li>
+
+        </ul>
+        <form class="form-inline mt-2 mt-md-0" action="/user/basket" method="get">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Корзина</button>
+        </form>
+        <form class="form-inline mt-2 mt-md-0" th:action="@{/logout}" th:method="POST">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выход</button>
+        </form>
+
+    </div>
+</nav>
+
+<div class="container">
+    <p class="lead">Поиск по названию, или категории:</p>
+    <form class="form-inline mt-2 mt-md-0" th:method="POST" th:action="@{/user/search}">
+        <input class="form-control mr-sm-2" type="text" name="name" placeholder="Введите текст" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+    </form>
+
+    <div class="py-5 text-center">
+        <h2>Каталог товаров</h2>
+        <p class="lead">Даже небольшие хотелки могут сделать деловека счастливым. Не упускай момент, выбирай!</p>
     </div>
 
-<div th:each="product : ${product}">
-    <a th:href="@{/user/{id}(id=${product.getProduct_id()})}"
-        th:text="${product.getTitle() + ', ' + product.getPrice()}">Product</a>
+    <br/>
+
+    <div class="list-group">
+        <a th:each="product : ${product}" th:href="@{/user/{id}(id=${product.getProduct_id()})}" class="list-group-item list-group-item-action">
+            <span th:text="${product.getTitle() + ', ' + product.getCategory_id() + ', ' + product.getPrice()}"/>
+        </a>
+    </div>
 </div>
 
-<form style="position: fixed; top: 10px; right: 10px;" action="/user/hello">
-    <input type="submit" value="Вернуться на главную"/>
-</form>
-
-<form style="position: fixed; top: 90px; right: 10px;" action="/user/basket" method="get">
-    <input type="submit" value="Корзина"/>
-</form>
-
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

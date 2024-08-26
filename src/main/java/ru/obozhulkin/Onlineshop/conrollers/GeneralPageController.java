@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.obozhulkin.Onlineshop.models.Person;
 import ru.obozhulkin.Onlineshop.models.Product;
 import ru.obozhulkin.Onlineshop.security.PersonDetails;
@@ -42,9 +43,23 @@ public class GeneralPageController {
     public String basket(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        model.addAttribute("person", personDetailsService.findOne(personDetails.getPerson().getId()));
-        model.addAttribute("basket", personDetailsService.getProductByPersonId(personDetails.getPerson().getId()));
+        List<Product> basket = personDetailsService.getProductByPersonId(personDetails.getPerson().getId());
+        double totalSum=0;
+        for (Product product : basket) {
+            totalSum+=product.getPrice();
+        }
+     //   model.addAttribute("person", personDetailsService.findOne(personDetails.getPerson().getId()));
+        model.addAttribute("basket", basket);
+        model.addAttribute("totalSum", totalSum);
         return "user/basket";
+    }
+
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable("id") int id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        personDetailsService.deleteProduct(personDetails.getPerson().getId(), id);
+        return "redirect:/user/basket";
     }
 
     @PostMapping("/search")
@@ -59,9 +74,14 @@ public class GeneralPageController {
         return "user/showInfoProduct";
     }
     @PostMapping("/{id}")
-    public String addInBasket(@PathVariable("id") int idProduct){
+    public String addInBasket(@PathVariable("id") int idProduct, RedirectAttributes redirectAttributes){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        Product product = productDetailsService.findOne(idProduct);
+        if (product.getQuantity() == 0) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Товар закончился и не может быть добавлен в корзину.");
+            return "redirect:/user/"+idProduct;
+        }
         personDetailsService.addBasket(personDetails.getPerson().getId(),idProduct);
         return "redirect:/user/"+idProduct;
     }

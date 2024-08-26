@@ -1,40 +1,175 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Basket</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!--    <style>-->
+<!--        .bg-image {-->
+<!--            background-image: url('https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/ee39bb58d6b0211c11e61221a0d50ca9.jpg');-->
+<!--            background-size: cover;-->
+<!--            background-position: center;-->
+<!--            background-repeat: no-repeat;-->
+<!--            min-height: 100vh; /* Ensure the background covers the entire viewport height */-->
+<!--            margin-top: -16px; /* Adjust this value based on the height of your navbar */-->
+<!--            padding-top: 16px; /* Adjust this value to provide space below the navbar */-->
+<!--        }-->
+<!--    </style>-->
+
+    <title>Hello, bayer!</title>
 </head>
-<body>
+<body class="bg-light"
+      style="background-size: 100%; background-image: url('https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/ee39bb58d6b0211c11e61221a0d50ca9.jpg');" >
 
-<!--<div th:each="product : ${basket}">-->
-<!--&lt;!&ndash;     th:href="@{/user/{id}(id=${product.getProduct_id()})}"&ndash;&gt;-->
-<!--    <a th:text="${product.getTitle() + ', ' + product.getPrice()}">Product</a>-->
-<!--</div>-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span class="navbar-brand" style="font-size: 2em;">𝔼𝕒𝕫𝕪 𝕊𝕟𝕚𝕔𝕜𝕖𝕣𝕤</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-<div th:if="${basket.isEmpty()}">
-    <p>Ваша корзина пуста</p>
-    <hr/>
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user/hello">Главная<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/user/catalog">Каталог<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" href="/admin/adminPage">Админ<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Профиль</a>
+            </li>
+
+        </ul>
+        <form class="form-inline mt-2 mt-md-0" action="/user/basket" method="get">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Корзина</button>
+        </form>
+        <form class="form-inline mt-2 mt-md-0" th:action="@{/logout}" th:method="POST">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выход</button>
+        </form>
+
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2 style="color: white;">Корзина</h2>
+        <p class="lead" style="color: white;">Список Ваших покупок:</p>
+    </div>
+
+
+    <div class="row" style="color: white;">
+        <div class="col col-lg-3">
+            <a class="btn btn-lg btn-block btn-outline-primary" role="button"
+               aria-disabled="true" style="background-color: blue;">Оформить заказ</a>
+        </div>
+
+    </div>
+    <div th:if="${basket.isEmpty()}">
+        <br/>
+        <p>Ваша корзина пуста</p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped" style="background-color: white;">
+            <thead>
+
+            <tr>
+                <th class="text-justify"> </th>
+                <th class="text-justify">Название</th>
+                <th class="text-justify">Категория</th>
+                <th class="text-justify">Цена</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="product : ${basket}">
+                <td class="align-middle"><span th:text="${product.getProduct_id()}"/></td>
+                <td class="align-middle"><a th:href="@{/user/{id}(id=${product.getProduct_id()})}">
+                    <span th:text="${product.getTitle()}"/></a></td>
+                <td class="align-middle"><span th:text="${product.getCategory_id()}"/></td>
+                <td class="align-middle"><span th:text="${product.getPrice()}"/></td>
+                <td><form th:method="post" th:action="@{/user/delete/{id}(id=${product.getProduct_id()})}">
+                    <button class="btn btn-lg btn-block btn-outline-primary" type="submit" style="background-color: blue; color: white;">Удалить</button>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div th:if="${!basket.isEmpty()}">
-    <hr/>
-    <b>Корзина:</b>
-    <br/>
-    <table th:each="product : ${basket}">
-        <tr>
-            <td>
-                <span>
-                <a th:href="@{/user/{id}(id=${product.getProduct_id()})}"
-                   th:text="${product.getTitle() + ', ' + product.getCategory_id() + ', ' + product.getPrice()}">Product</a>
-                </span>
-            </td>
-        </tr>
-    </table>
-    <hr/>
-</div>
-
-<form style="position: fixed; top: 10px; right: 10px;" action="/user/hello">
-    <input type="submit" value="Вернуться на главную"/>
-</form>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Basket</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash;<div th:each="product : ${basket}">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;     th:href="@{/user/{id}(id=${product.getProduct_id()})}"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <a th:text="${product.getTitle() + ', ' + product.getPrice()}">Product</a>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<div th:if="${basket.isEmpty()}">-->
+<!--    <p>Ваша корзина пуста</p>-->
+<!--    <hr/>-->
+<!--</div>-->
+
+<!--<div th:if="${!basket.isEmpty()}">-->
+<!--    <hr/>-->
+<!--    <b>Корзина:</b>-->
+<!--    <br/>-->
+<!--    <table th:each="product : ${basket}">-->
+<!--        <tr>-->
+<!--            <td>-->
+<!--                <span>-->
+<!--                <a th:href="@{/user/{id}(id=${product.getProduct_id()})}"-->
+<!--                   th:text="${product.getTitle() + ', ' + product.getCategory_id() + ', ' + product.getPrice()}">Product</a>-->
+<!--                </span>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <form th:method="post" th:action="@{/user/delete/{id}(id=${product.getProduct_id()})}">-->
+<!--                <input type="submit" value="Удалить"/>-->
+<!--            </form>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--    <hr/>-->
+<!--    <b>Общая сумма:</b>-->
+<!--    <span th:text="${totalSum}"></span>-->
+<!--</div>-->
+
+<!--<form style="position: fixed; top: 10px; right: 10px;" action="/user/hello">-->
+<!--    <input type="submit" value="Вернуться на главную"/>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->

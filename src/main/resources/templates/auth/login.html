@@ -1,27 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Login page</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Привет, покупатель!</title>
 </head>
-<body style="background-size: 95%; background-image: url('https://i.pinimg.com/originals/d3/00/24/d3002470717681998e394feca29d9714.png');" >
+<body class="bg-light"
+        style="background-size: 100%; background-image: url('https://thealternativeviewing.wordpress.com/wp-content/uploads/2016/08/adidas-originals-gazelle-nemesis-vintage-white-gold-s76688-on-feet-6.jpg');" >
 
-<form style="margin: auto; width: 500px;" name="f" method="POST" action="/process_login">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <label for="username" style="color: white;">Введите имя пользователя:</label>
-    <input type="text" name="username" id="username">
-    <br>
-    <label for="password" style="color: white;">Введите пароль:</label>
-    <input type="password" name="password" id="password">
-    <br>
-    <input type="submit" value="Войти">
-    <div th:if="${param.error}" style="color: red">
-        Неправильное имя или пароль!
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span class="navbar-brand" style="font-size: 2em;">𝔼𝕒𝕫𝕪 𝕊𝕟𝕚𝕔𝕜𝕖𝕣𝕤</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <form action="/auth/registration" class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Зарегистрироваться</button>
+        </form>
     </div>
+</nav>
 
+<form enctype="multipart/form-data" action="/process_login" method="post" class="needs-validation" novalidate>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h4 class="mb-3 text-center" style="color: white;">Авторизация</h4>
+
+            <div class="form-group text-center">
+                <input type="hidden" class="form-control" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                <label for="username" style="color: white;">Введите имя пользователя:</label>
+                <input type="text" class="form-control mx-auto" name="username" id="username" style="width: 200px;">
+
+                <label for="password" class="mt-3" style="color: white;">Введите пароль:</label>
+                <input type="password" class="form-control mx-auto" name="password" id="password" style="width: 200px;">
+
+                <button class="btn btn-primary mt-3" type="submit" value="Submit" style="width: 200px;">Войти</button>
+
+                <div class="mt-3" th:if="${param.error}" style="color: red;">
+                    Неправильное имя или пароль!
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-<form style="position: fixed; top: 10px; right: 10px;" action="/auth/registration">
-    <input type="submit" value="Зарегистрироваться"/>
-</form>
+<!--<form style="position: fixed; top: 10px; right: 10px;" action="/auth/registration">-->
+<!--    <input type="submit" value="Зарегистрироваться"/>-->
+<!--</form>-->
 </body>
 </html>

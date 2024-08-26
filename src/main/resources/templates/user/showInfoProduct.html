@@ -1,22 +1,109 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Information about this product</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Information about this product</title>-->
+<!--</head>-->
+<!--<body>-->
 
-<p th:text="${product.getTitle()}">VALUE</p>
-<p th:text="${product.getImage_url()}">VALUE</p>
-<p th:text="${product.getCategory_id()}">VALUE</p>
-<p th:text="${product.getDescription()}">VALUE</p>
-<p th:text="${product.getQuantity()}">VALUE</p>
-<p th:text="${product.getPrice()}">VALUE</p>
+<!--<p th:text="${product.getTitle()}">VALUE</p>-->
+<!--<p th:text="${product.getImage_url()}">VALUE</p>-->
+<!--<p th:text="${product.getCategory_id()}">VALUE</p>-->
+<!--<p th:text="${product.getDescription()}">VALUE</p>-->
+<!--<p th:text="${product.getQuantity() == 0 ? 'товар закончился' : product.getQuantity()}">VALUE</p>-->
+<!--<p th:text="${product.getPrice()}">VALUE</p>-->
+<!--</body>-->
+<!--<form style="position: fixed; top: 90px; right: 10px;" action="/user/basket" method="get">-->
+<!--    <input type="submit" value="Корзина"/>-->
+<!--</form>-->
+<!--<form th:method="Post" th:action="@{/user/{id}(id=${product.getProduct_id()})}">-->
+<!--    <input type="submit" value="Добавить" th:disabled="${product.getQuantity() == 0}"/>-->
+<!--</form>-->
+<!--<form  action="/user/catalog">-->
+<!--    <input type="submit" value="Каталог"/>-->
+<!--</form>-->
+<!--</html>-->
+
+
+
+
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Информация о товаре</title>
+</head>
+<body class="bg-light">
+<!--      style="background-size: 100%; background-image: url('https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/ee39bb58d6b0211c11e61221a0d50ca9.jpg');">-->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span class="navbar-brand" style="font-size: 2em;">𝔼𝕒𝕫𝕪 𝕊𝕟𝕚𝕔𝕜𝕖𝕣𝕤</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user/hello">Главная<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/user/catalog">Каталог<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" href="/admin/adminPage">Админ<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Профиль</a>
+            </li>
+
+        </ul>
+        <form class="form-inline mt-2 mt-md-0" action="/user/basket" method="get">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Корзина</button>
+        </form>
+        <form class="form-inline mt-2 mt-md-0" th:action="@{/logout}" th:method="POST">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выход</button>
+        </form>
+
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img th:src="${product.getImage_url()}" class="img-fluid" alt="Изображение товара">
+        </div>
+        <div class="col-md-6">
+            <h2 th:text="${product.getTitle()}"></h2>
+            <p><strong>Категория:</strong> <span th:text="${product.getCategory_id()}"></span></p>
+            <p><strong>Цена:</strong> <span th:text="${product.getPrice()}"></span></p>
+            <p><strong>Количество:</strong> <span th:text="${product.getQuantity() == 0 ? 'товар закончился' : product.getQuantity()}"></span></p>
+            <form th:method="post" th:action="@{/user/{id}(id=${product.getProduct_id()})}">
+                <button class="btn btn-lg btn-block btn-outline-primary" type="submit" style="background-color: blue; color: white;" th:disabled="${product.getQuantity() == 0}">Добавить в корзину!</button>
+            </form>
+            <hr style="color: black"/>
+            <p th:text="${product.getDescription()}"></p>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
-<form style="position: fixed; top: 90px; right: 10px;" action="/user/basket" method="get">
-    <input type="submit" value="Корзина"/>
-</form>
-<form th:method="Post" th:action="@{/user/{id}(id=${product.getProduct_id()})}">
-    <input type="submit" value="Добавить"/>
-</form>
 </html>

@@ -27,8 +27,7 @@ public class Product {
     @Max(value = 1000000, message = "Стоимость не выше 1000000")
     private int price;
     @Column(name = "quantity")
-    @NotEmpty(message = "Введите колличество")
-    private String quantity;
+    private int quantity;
     @Column(name = "image_url")
     @NotEmpty(message = "Введите url картинки товара")
     private String image_url;
@@ -50,6 +49,9 @@ public class Product {
 
     public void addBuyer(Person buyer) {
         buyers.add(buyer);
+    }
+    public void deleteBuyer(Person buyer) {
+        buyers.remove(buyer);
     }
 
     public int getProduct_id() {
@@ -92,11 +94,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

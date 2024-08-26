@@ -1,34 +1,129 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
-</head>
-<body style="background-size: 95%; background-image: url('https://www.opensourceagenda.com/storage/media/700/a-brief-history-of-spring-spring-boot.jpg');" >
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Registration</title>-->
+<!--</head>-->
+<!--<body style="background-size: 95%; background-image: url('https://www.opensourceagenda.com/storage/media/700/a-brief-history-of-spring-spring-boot.jpg');" >-->
 
-<form style="margin: auto; width: 500px;" th:method="post" th:action="@{/auth/registration}" th:object="${person}">
-  <label for="username">Введите имя пользователя:</label>
-  <input type="text" th:field="*{username}" id="username">
-  <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
-  <br>
-  <label for="phone">Введите номер телефона:</label>
-  <input type="text" th:field="*{phone}" id="phone">
-  <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</div>
-  <br>
-  <label for="yearOfBirth">Год рождения:</label>
-  <input type="number" th:field="*{yearOfBirth}" id="yearOfBirth">
-  <div style="color: red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Year of birth Error</div>
-  <br>
-  <label for="password">Введите пароль:</label>
-  <input type="password" th:field="*{password}" id="password">
-  <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
-  <br>
-  <input type="submit" value="Зарегистрироваться!">
-  <br>
-  <hr>
-</form>
-<form style="position: fixed; top: 10px; right: 10px;" action="/auth/login">
-  <input type="submit" value="Войти"/>
-</form>
+<!--<form style="margin: auto; width: 500px;" th:method="post" th:action="@{/auth/registration}" th:object="${person}">-->
+<!--&lt;!&ndash;  <label for="username">Введите имя пользователя:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;  <input type="text" th:field="*{username}" id="username">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <br>&ndash;&gt;-->
+<!--&lt;!&ndash;  <label for="phone">Введите номер телефона:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;  <input type="text" th:field="*{phone}" id="phone">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <br>&ndash;&gt;-->
+<!--&lt;!&ndash;  <label for="yearOfBirth">Год рождения:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;  <input type="number" th:field="*{yearOfBirth}" id="yearOfBirth">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Year of birth Error</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <br>&ndash;&gt;-->
+<!--&lt;!&ndash;  <label for="password">Введите пароль:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;  <input type="password" th:field="*{password}" id="password">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  <br>&ndash;&gt;-->
+<!--  <input type="submit" value="Зарегистрироваться!">-->
+<!--  <br>-->
+<!--  <hr>-->
+<!--</form>-->
+<!--<form style="position: fixed; top: 10px; right: 10px;" action="/auth/login">-->
+<!--  <input type="submit" value="Войти"/>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <title>Hello, bayer!</title>
+</head>
+<body class="bg-light"
+      style="background-size: 100%; background-image: url('https://masterpiecer-images.s3.yandex.net/468a3ba662fc11efac1666e14819989e:1https://i.pinimg.com/originals/1c/db/aa/1cdbaa8026a2490c5350c9083596a13f.jpg');" >
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <span class="navbar-brand" style="font-size: 2em;">𝔼𝕒𝕫𝕪 𝕊𝕟𝕚𝕔𝕜𝕖𝕣𝕤</span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+          aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExample05">
+    <ul class="navbar-nav mr-auto">
+          </ul>
+    <form class="form-inline mt-2 mt-md-0" th:action="@{/logout}" th:method="POST">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Войти</button>
+    </form>
+
+  </div>
+</nav>
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>Регистрация</h2>
+    <p class="lead">Заполните поля и нажмите кнопку 'Зарегистрироваться'</p>
+  </div>
+
+  <form enctype="multipart/form-data" action="#" th:action="@{/auth/registration}" th:object="${person}" method="post" class="needs-validation"
+        novalidate>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="mb-3">Поля для заполнения</h4>
+
+        <div class="row">
+
+          <div class="col-md-4 mb-3">
+            <label for="username">Введите имя пользователя:</label>
+            <input th:field="*{username}" type="text" class="form-control" id="username" placeholder="" value="" required>
+            <small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="phone">Введите номер телефона:</label>
+            <input th:field="*{phone}" type="text" class="form-control" id="phone" placeholder="8 (ХХХ) ХХХ-ХХХХ" value="" required>
+            <small class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"/>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="yearOfBirth">Год рождения:</label>
+            <input th:field="*{yearOfBirth}" type="text" class="form-control" id="yearOfBirth" placeholder="" value="" required>
+            <small class="text-danger" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}"/>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="password">Введите пароль:</label>
+            <input th:field="*{password}" type="password" class="form-control" id="password" placeholder="" value="" required>
+            <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+          </div>
+        </div>
+        <hr class="mb-4">
+        <button class="btn btn-lg btn-block btn-outline-primary" type="submit" style="background-color: blue; color: white;">Зарегистрироваться</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>
