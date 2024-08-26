@@ -1,33 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Information about this product</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<p th:text="${product.getTitle()}">VALUE</p>-->
-<!--<p th:text="${product.getImage_url()}">VALUE</p>-->
-<!--<p th:text="${product.getCategory_id()}">VALUE</p>-->
-<!--<p th:text="${product.getDescription()}">VALUE</p>-->
-<!--<p th:text="${product.getQuantity() == 0 ? 'товар закончился' : product.getQuantity()}">VALUE</p>-->
-<!--<p th:text="${product.getPrice()}">VALUE</p>-->
-<!--</body>-->
-<!--<form style="position: fixed; top: 90px; right: 10px;" action="/user/basket" method="get">-->
-<!--    <input type="submit" value="Корзина"/>-->
-<!--</form>-->
-<!--<form th:method="Post" th:action="@{/user/{id}(id=${product.getProduct_id()})}">-->
-<!--    <input type="submit" value="Добавить" th:disabled="${product.getQuantity() == 0}"/>-->
-<!--</form>-->
-<!--<form  action="/user/catalog">-->
-<!--    <input type="submit" value="Каталог"/>-->
-<!--</form>-->
-<!--</html>-->
-
-
-
-
-
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>

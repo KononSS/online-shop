@@ -1,35 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Hello World!</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--Hello buyer!!!-->
-<!--This list products for view-->
-<!--<br>-->
-<!--<hr>-->
-<!--<form  action="/user/catalog">-->
-<!--    <input type="submit" value="Каталог"/>-->
-<!--</form>-->
-<!--<form  action="/admin/adminPage">-->
-<!--    <input type="submit" value="Войти в качестве администратора"/>-->
-<!--</form>-->
-
-<!--<form style="position: fixed; top: 10px; right: 10px;" th:action="@{/logout}" th:method="POST">-->
-<!--    <input type="submit" value="Выйти"/>-->
-<!--</form>-->
-
-<!--<form style="position: fixed; top: 90px; right: 10px;" action="/user/basket" method="get">-->
-<!--    <input type="submit" value="Корзина"/>-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html>-->
-
-
-
-
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
@@ -93,58 +61,6 @@
 </body>
 </html>
 
-<!--<div class="container">-->
-
-<!--    <div class="py-5 text-center">-->
-<!--        <h2>Управление студентами</h2>-->
-<!--        <p class="lead">На данной странице вы можете добавить, отредактировать поля или удалить студентов кафедры</p>-->
-<!--    </div>-->
-
-
-<!--    <div class="row">-->
-<!--        <div class="col">-->
-<!--            <h2>Группа АИ-171</h2>-->
-<!--        </div>-->
-<!--        <div class="col col-lg-3">-->
-<!--            <a th:href="@{~/add_student}" class="btn btn-lg btn-block btn-outline-primary" role="button"-->
-<!--               aria-disabled="true">Добавить студента</a>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <br/>-->
-
-<!--    <div class="table-responsive">-->
-<!--        <table class="table table-striped">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th class="text-justify">#</th>-->
-<!--                <th class="text-justify">Фамилия</th>-->
-<!--                <th class="text-justify">Имя</th>-->
-<!--                <th class="text-justify">Отчество</th>-->
-<!--                <th class="text-justify">Почта</th>-->
-<!--                <th class="text-justify">Телефон</th>-->
-<!--                <th class="text-justify">Адрес</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr th:each="student : ${students}">-->
-<!--                <td class="align-middle"><span th:text="${student.id}"/></td>-->
-<!--                <td class="align-middle"><span th:text="${student.lastName}"/></td>-->
-<!--                <td class="align-middle"><span th:text="${student.firstName}"/></td>-->
-<!--                <td class="align-middle"><span th:text="${student.patronymic}"/></td>-->
-<!--                <td class="align-middle"><span th:text="${student.email}"/></td>-->
-<!--                <td class="align-middle"><span th:text="${student.phone}"/></td>-->
-<!--                <td class="align-middle"><span th:text="${student.address}"/></td>-->
-<!--                <td><a th:href="@{~/{id}/edit(id=${student.getId()})}" class="btn btn-lg btn-block btn-outline-primary" role="button"-->
-<!--                       aria-disabled="true">Редактировать</a></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

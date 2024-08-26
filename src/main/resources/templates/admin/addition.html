@@ -1,49 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Addition</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--Привет! Вы на странице добавления продукта-->
-
-<!--<form th:method="post" th:action="@{/admin/addProduct}" th:object="${product}">-->
-<!--&lt;!&ndash;  <label for="title">Введите название продукта:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;  <input type="text" th:field="*{title}" id="title">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br>&ndash;&gt;-->
-<!--&lt;!&ndash;  <label for="description">Введите описание продукта:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;  <input type="text" th:field="*{description}" id="description">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br>&ndash;&gt;-->
-<!--&lt;!&ndash;  <label for="category_id">Введите категорию:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;  <input type="text" th:field="*{category_id}" id="category_id">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('category_id')}" th:errors="*{category_id}">Category Error</div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br>&ndash;&gt;-->
-<!--&lt;!&ndash;  <label for="price">Введите стоимость:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;  <input type="text" th:field="*{price}" id="price">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br>&ndash;&gt;-->
-<!--&lt;!&ndash;  <label for="quantity">Введите количество:</label>&ndash;&gt;-->
-<!--&lt;!&ndash;  <input type="text" th:field="*{quantity}" id="quantity">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div style="color: red" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Quantity Error</div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <br>&ndash;&gt;-->
-<!--  <label for="image_url">Введите url адрес картинки:</label>-->
-<!--  <input type="text" th:field="*{image_url}" id="image_url">-->
-<!--  <div style="color: red" th:if="${#fields.hasErrors('image_url')}" th:errors="*{image_url}">Image url Error</div>-->
-<!--  <br>-->
-<!--  <input type="submit" value="Добавить товар">-->
-<!--  <br>-->
-<!--  <hr>-->
-<!--</form>-->
-<!--<form style="position: fixed; top: 10px; right: 10px;" action="/admin/adminPage">-->
-<!--  <input type="submit" value="Вернуться на страницу админа"/>-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
-
-
-
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
@@ -144,9 +98,6 @@
   </form>
 </div>
 
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

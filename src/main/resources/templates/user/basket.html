@@ -1,25 +1,11 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-<!--    <style>-->
-<!--        .bg-image {-->
-<!--            background-image: url('https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/ee39bb58d6b0211c11e61221a0d50ca9.jpg');-->
-<!--            background-size: cover;-->
-<!--            background-position: center;-->
-<!--            background-repeat: no-repeat;-->
-<!--            min-height: 100vh; /* Ensure the background covers the entire viewport height */-->
-<!--            margin-top: -16px; /* Adjust this value based on the height of your navbar */-->
-<!--            padding-top: 16px; /* Adjust this value to provide space below the navbar */-->
-<!--        }-->
-<!--    </style>-->
 
     <title>Hello, bayer!</title>
 </head>
@@ -107,8 +93,6 @@
     </div>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -126,50 +110,3 @@
 
 
 
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Basket</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--&lt;!&ndash;<div th:each="product : ${basket}">&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;     th:href="@{/user/{id}(id=${product.getProduct_id()})}"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;    <a th:text="${product.getTitle() + ', ' + product.getPrice()}">Product</a>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-<!--<div th:if="${basket.isEmpty()}">-->
-<!--    <p>Ваша корзина пуста</p>-->
-<!--    <hr/>-->
-<!--</div>-->
-
-<!--<div th:if="${!basket.isEmpty()}">-->
-<!--    <hr/>-->
-<!--    <b>Корзина:</b>-->
-<!--    <br/>-->
-<!--    <table th:each="product : ${basket}">-->
-<!--        <tr>-->
-<!--            <td>-->
-<!--                <span>-->
-<!--                <a th:href="@{/user/{id}(id=${product.getProduct_id()})}"-->
-<!--                   th:text="${product.getTitle() + ', ' + product.getCategory_id() + ', ' + product.getPrice()}">Product</a>-->
-<!--                </span>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <form th:method="post" th:action="@{/user/delete/{id}(id=${product.getProduct_id()})}">-->
-<!--                <input type="submit" value="Удалить"/>-->
-<!--            </form>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--    </table>-->
-<!--    <hr/>-->
-<!--    <b>Общая сумма:</b>-->
-<!--    <span th:text="${totalSum}"></span>-->
-<!--</div>-->
-
-<!--<form style="position: fixed; top: 10px; right: 10px;" action="/user/hello">-->
-<!--    <input type="submit" value="Вернуться на главную"/>-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
