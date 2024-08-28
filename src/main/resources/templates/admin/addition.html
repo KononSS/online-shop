@@ -78,7 +78,7 @@
           <div class="col-md-4 mb-3">
             <label for="price">Введите стоимость:</label>
             <input th:field="*{price}" type="text" class="form-control" id="price" placeholder="" value="" required>
-            <small class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
+            <small class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
           </div>
           <div class="col-md-4 mb-3">
             <label for="quantity">Введите количество:</label>
@@ -86,10 +86,14 @@
             <small class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"/>
           </div>
           <div class="col-md-4 mb-3">
-            <label for="image_url">Введите url адрес картинки:</label>
-            <input th:field="*{image_url}" type="text" class="form-control" id="image_url" placeholder="" value="" required>
-            <small class="text-danger" th:if="${#fields.hasErrors('image_url')}" th:errors="*{image_url}"/>
+            <label for="image">Загрузите картинку:</label>
+            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
           </div>
+<!--          <div class="col-md-4 mb-3">-->
+<!--            <label for="image_url">Введите url адрес картинки:</label>-->
+<!--            <input th:field="*{image_url}" type="text" class="form-control" id="image_url" placeholder="" value="" required>-->
+<!--            <small class="text-danger" th:if="${#fields.hasErrors('image_url')}" th:errors="*{image_url}"/>-->
+<!--          </div>-->
         </div>
         <hr class="mb-4">
         <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">Добавить товар</button>

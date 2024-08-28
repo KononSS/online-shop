@@ -3,7 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <style>
+        .product-image {
+            width: 100px; /* Задайте нужную ширину */
+            height: 100px; /* Задайте нужную высоту */
+            object-fit: cover; /* Это свойство позволяет масштабировать изображение, сохраняя пропорции */
+        }
+    </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -68,7 +74,6 @@
     <div class="table-responsive">
         <table class="table table-striped" style="background-color: white;">
             <thead>
-
             <tr>
                 <th class="text-justify"> </th>
                 <th class="text-justify">Название</th>
@@ -77,16 +82,26 @@
             </tr>
             </thead>
             <tbody>
-
             <tr th:each="product : ${basket}">
-                <td class="align-middle"><span th:text="${product.getProduct_id()}"/></td>
-                <td class="align-middle"><a th:href="@{/user/{id}(id=${product.getProduct_id()})}">
-                    <span th:text="${product.getTitle()}"/></a></td>
-                <td class="align-middle"><span th:text="${product.getCategory_id()}"/></td>
-                <td class="align-middle"><span th:text="${product.getPrice()}"/></td>
-                <td><form th:method="post" th:action="@{/user/delete/{id}(id=${product.getProduct_id()})}">
-                    <button class="btn btn-lg btn-block btn-outline-primary" type="submit" style="background-color: blue; color: white;">Удалить</button>
-                </form>
+                <td class="align-middle">
+                    <img th:src="@{${product.image_url}}" class="img-fluid product-image" alt="картинка">
+                </td>
+                <td class="align-middle">
+                    <a th:href="@{/user/{id}(id=${product.getProduct_id()})}">
+                        <span th:text="${product.getTitle()}"></span>
+                    </a>
+                </td>
+                <td class="align-middle">
+                    <span th:text="${product.getCategory_id()}"></span>
+                </td>
+                <td class="align-middle">
+                    <span th:text="${product.getPrice()}"></span>
+                </td>
+                <td class="align-middle">
+                    <form th:method="post" th:action="@{/user/delete/{id}(id=${product.getProduct_id()})}">
+                        <button class="btn btn-lg btn-block btn-outline-primary" type="submit" style="background-color: blue; color: white;">Удалить</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

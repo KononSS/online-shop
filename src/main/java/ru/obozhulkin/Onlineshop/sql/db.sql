@@ -9,9 +9,6 @@ create table person
     role          varchar(100) not null
 );
 
-alter table person
-    owner to postgres;
-
 create table product
 (
     product_id  integer default nextval('products_product_id_seq'::regclass) not null
@@ -21,12 +18,18 @@ create table product
     description text,
     category_id varchar                                                      not null,
     price       integer                                                      not null,
-    quantity    varchar(30)                                                  not null,
-    image_url   varchar(255)                                                 not null,
-    person_id   integer
-                                                                             references person
-                                                                                 on delete set null
+    quantity    integer                                                      not null,
+    image_url   varchar(255)                                                 not null
 );
 
-alter table product
-    owner to postgres;
+
+create table person_product
+(
+    id         serial
+        primary key,
+    person_id  integer not null
+        references person
+            on delete cascade,
+    product_id integer not null
+        references product
+);

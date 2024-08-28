@@ -1,10 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <style>
+        .product-image {
+            width: 500px; /* Задайте нужную ширину */
+            height: 500px; /* Задайте нужную высоту */
+            object-fit: cover; /* Это свойство позволяет масштабировать изображение, сохраняя пропорции */
+        }
+    </style>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -12,7 +18,6 @@
     <title>Информация о товаре</title>
 </head>
 <body class="bg-light">
-<!--      style="background-size: 100%; background-image: url('https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/ee39bb58d6b0211c11e61221a0d50ca9.jpg');">-->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <span class="navbar-brand" style="font-size: 2em;">𝔼𝕒𝕫𝕪 𝕊𝕟𝕚𝕔𝕜𝕖𝕣𝕤</span>
@@ -50,18 +55,18 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <img th:src="${product.getImage_url()}" class="img-fluid" alt="Изображение товара">
+            <img th:src="@{${product.image_url}}" class="img-fluid product-image" alt="картинка">
         </div>
         <div class="col-md-6">
-            <h2 th:text="${product.getTitle()}"></h2>
-            <p><strong>Категория:</strong> <span th:text="${product.getCategory_id()}"></span></p>
-            <p><strong>Цена:</strong> <span th:text="${product.getPrice()}"></span></p>
-            <p><strong>Количество:</strong> <span th:text="${product.getQuantity() == 0 ? 'товар закончился' : product.getQuantity()}"></span></p>
-            <form th:method="post" th:action="@{/user/{id}(id=${product.getProduct_id()})}">
-                <button class="btn btn-lg btn-block btn-outline-primary" type="submit" style="background-color: blue; color: white;" th:disabled="${product.getQuantity() == 0}">Добавить в корзину!</button>
+            <h2 th:text="${product.title}"></h2>
+            <p><strong>Категория:</strong> <span th:text="${product.category_id}"></span></p>
+            <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>
+            <p><strong>Количество:</strong> <span th:text="${product.quantity == 0 ? 'товар закончился' : product.quantity}"></span></p>
+            <form th:method="post" th:action="@{/user/{id}(id=${product.product_id})}">
+                <button class="btn btn-lg btn-block btn-outline-primary" type="submit" style="background-color: blue; color: white;" th:disabled="${product.quantity == 0}">Добавить в корзину!</button>
             </form>
             <hr style="color: black"/>
-            <p th:text="${product.getDescription()}"></p>
+            <p th:text="${product.description}"></p>
         </div>
     </div>
 </div>

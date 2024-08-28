@@ -29,7 +29,6 @@ public class Product {
     @Column(name = "quantity")
     private int quantity;
     @Column(name = "image_url")
-    @NotEmpty(message = "Введите url картинки товара")
     private String image_url;
     @ManyToMany(mappedBy = "basket")
     private List<Person> buyers;
