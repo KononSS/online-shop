@@ -71,9 +71,9 @@
             <small class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"/>
           </div>
           <div class="col-md-4 mb-3">
-            <label for="category_id">Введите категорию:</label>
-            <input th:field="*{category_id}" type="text" class="form-control" id="category_id" placeholder="" value="" required>
-            <small class="text-danger" th:if="${#fields.hasErrors('category_id')}" th:errors="*{category_id}"/>
+            <label for="category">Введите категорию:</label>
+            <input th:field="*{category}" type="text" class="form-control" id="category" placeholder="" value="" required>
+            <small class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"/>
           </div>
           <div class="col-md-4 mb-3">
             <label for="price">Введите стоимость:</label>
@@ -86,13 +86,13 @@
             <small class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"/>
           </div>
           <div class="col-md-4 mb-3">
-            <label for="image">Загрузите картинку:</label>
-            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+            <label for="img">Загрузите картинку:</label>
+            <input type="file" class="form-control-file" id="img" name="img" accept="image/*" required>
           </div>
 <!--          <div class="col-md-4 mb-3">-->
-<!--            <label for="image_url">Введите url адрес картинки:</label>-->
-<!--            <input th:field="*{image_url}" type="text" class="form-control" id="image_url" placeholder="" value="" required>-->
-<!--            <small class="text-danger" th:if="${#fields.hasErrors('image_url')}" th:errors="*{image_url}"/>-->
+<!--            <label for="image">Введите url адрес картинки:</label>-->
+<!--            <input th:field="*{image}" type="text" class="form-control" id="image_url" placeholder="" value="" required>-->
+<!--            <small class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image_url}"/>-->
 <!--          </div>-->
         </div>
         <hr class="mb-4">

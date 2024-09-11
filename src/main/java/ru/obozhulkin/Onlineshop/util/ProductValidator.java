@@ -1,5 +1,6 @@
 package ru.obozhulkin.Onlineshop.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -7,8 +8,10 @@ import org.springframework.validation.Validator;
 import ru.obozhulkin.Onlineshop.models.Product;
 import ru.obozhulkin.Onlineshop.services.ProductDetailsService;
 
+@Slf4j
 @Component
 public class ProductValidator implements Validator {
+
     private final ProductDetailsService productDetailsService;
 
     @Autowired
@@ -24,7 +27,14 @@ public class ProductValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Product product = (Product) o;
-        if (productDetailsService.title(product.getTitle()).isPresent())
-            errors.rejectValue("title", "", " Такой товар уже зарегистрирован");
+
+        log.debug("Validating product: {}", product);
+
+        if (productDetailsService.title(product.getTitle()).isPresent()) {
+            log.warn("Product with title {} already exists", product.getTitle());
+            errors.rejectValue("title", "", "Такой товар уже зарегистрирован");
+        }
+
+        log.debug("Validation completed for product: {}", product);
     }
 }

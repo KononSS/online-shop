@@ -64,13 +64,14 @@
             <a class="btn btn-lg btn-block btn-outline-primary" role="button"
                aria-disabled="true" style="background-color: blue;">Оформить заказ</a>
         </div>
-
     </div>
-    <div th:if="${basket.isEmpty()}">
-        <br/>
-        <p>Ваша корзина пуста</p>
+    <div class="row" style="color: white;">
+        <div class="col col-lg-3">
+            <div class="btn btn-lg btn-block btn-outline-primary" style="background-color: blue; pointer-events: none;">
+                <p>Общая сумма: <span th:text="${totalSum}"></span></p>
+            </div>
+        </div>
     </div>
-
     <div class="table-responsive">
         <table class="table table-striped" style="background-color: white;">
             <thead>
@@ -84,7 +85,7 @@
             <tbody>
             <tr th:each="product : ${basket}">
                 <td class="align-middle">
-                    <img th:src="@{${product.image_url}}" class="img-fluid product-image" alt="картинка">
+                    <img th:src="@{${product.getImage()} + '?v=' + ${#dates.createNow().getTime()}}" class="img-fluid product-image" alt="картинка">
                 </td>
                 <td class="align-middle">
                     <a th:href="@{/user/{id}(id=${product.getProduct_id()})}">
@@ -92,7 +93,7 @@
                     </a>
                 </td>
                 <td class="align-middle">
-                    <span th:text="${product.getCategory_id()}"></span>
+                    <span th:text="${product.getCategory()}"></span>
                 </td>
                 <td class="align-middle">
                     <span th:text="${product.getPrice()}"></span>
@@ -105,6 +106,7 @@
             </tr>
             </tbody>
         </table>
+
     </div>
 </div>
 

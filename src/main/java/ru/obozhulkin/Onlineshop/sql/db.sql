@@ -16,10 +16,10 @@ create table product
             primary key,
     title       varchar(255)                                                 not null,
     description text,
-    category_id varchar                                                      not null,
+    category varchar                                                      not null,
     price       integer                                                      not null,
     quantity    integer                                                      not null,
-    image_url   varchar(255)                                                 not null
+    image   varchar(255)                                                 not null
 );
 
 

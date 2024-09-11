@@ -55,11 +55,10 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
-            <img th:src="@{${product.image_url}}" class="img-fluid product-image" alt="картинка">
-        </div>
-        <div class="col-md-6">
             <h2 th:text="${product.title}"></h2>
-            <p><strong>Категория:</strong> <span th:text="${product.category_id}"></span></p>
+<!--            <img th:src="@{${product.getImage()}}" class="img-fluid product-image" alt="картинка">-->
+            <img th:src="@{${product.getImage()} + '?v=' + ${#dates.createNow().getTime()}}" class="img-fluid product-image" alt="картинка">
+            <p><strong>Категория:</strong> <span th:text="${product.category}"></span></p>
             <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>
             <p><strong>Количество:</strong> <span th:text="${product.quantity == 0 ? 'товар закончился' : product.quantity}"></span></p>
             <form th:method="post" th:action="@{/user/{id}(id=${product.product_id})}">

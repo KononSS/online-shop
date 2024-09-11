@@ -4,7 +4,13 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <style>
+        .product-image {
+            width: 100px; /* Задайте нужную ширину */
+            height: 100px; /* Задайте нужную высоту */
+            object-fit: cover; /* Это свойство позволяет масштабировать изображение, сохраняя пропорции */
+        }
+    </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -47,22 +53,23 @@
 </nav>
 
 <div class="container">
-    <p class="lead">Поиск по названию, или категории:</p>
+    <p class="lead">Поиск по названию:</p>
     <form class="form-inline mt-2 mt-md-0" th:method="POST" th:action="@{/user/search}">
-        <input class="form-control mr-sm-2" type="text" name="name" placeholder="Введите текст" aria-label="Search">
+        <input class="form-control mr-sm-2" type="text" name="name" placeholder="Введите название" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
     </form>
 
     <div class="py-5 text-center">
         <h2>Каталог товаров</h2>
-        <p class="lead">Даже небольшие хотелки могут сделать деловека счастливым. Не упускай момент, выбирай!</p>
+        <p class="lead">Даже небольшие хотелки могут сделать человека счастливым. Не упускай момент, выбирай!</p>
     </div>
 
     <br/>
 
     <div class="list-group">
         <a th:each="product : ${product}" th:href="@{/user/{id}(id=${product.getProduct_id()})}" class="list-group-item list-group-item-action">
-            <span th:text="${product.getTitle() + ', ' + product.getCategory_id() + ', ' + product.getPrice()}"/>
+                <img th:src="@{${product.image}}" class="img-fluid product-image" alt="картинка">
+            <span th:text="${product.getTitle() + ', ' + product.getCategory() + ', ' + product.getPrice()}"/>
         </a>
     </div>
 </div>
