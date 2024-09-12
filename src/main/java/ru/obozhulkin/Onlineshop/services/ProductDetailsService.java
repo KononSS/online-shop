@@ -48,6 +48,11 @@ public class ProductDetailsService {
                 });
     }
 
+    public void delete(int id) {
+        log.debug("Deleting product: {}", id);
+        productRepository.deleteById(id);
+    }
+
     public List<Product> searchByTitle(String name) {
         log.debug("Searching products by title starting with: {}", name);
         return productRepository.findByTitleStartingWith(name);

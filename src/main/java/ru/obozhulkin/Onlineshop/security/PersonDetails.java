@@ -11,7 +11,6 @@ public class PersonDetails implements UserDetails {
 
 private final Person person;
 
-
     public PersonDetails(Person person) {
         this.person = person;
     }
@@ -50,7 +49,7 @@ private final Person person;
     public boolean isEnabled() {
         return true;
     }
-    //Нужно для получения данных аунтефицированного пользователя
+
     public Person getPerson(){
         return this.person;
     }

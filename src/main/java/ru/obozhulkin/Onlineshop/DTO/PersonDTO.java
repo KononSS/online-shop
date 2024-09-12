@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class PersonDTO {
+
     @NotEmpty(message = "Имя не должно быть пустым")
     @Size(min = 2, max = 100, message = "Имя должно быть не менее 2-х символов и не более 100 символов")
     private String username;

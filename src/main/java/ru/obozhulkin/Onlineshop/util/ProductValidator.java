@@ -27,14 +27,11 @@ public class ProductValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Product product = (Product) o;
-
         log.debug("Validating product: {}", product);
-
         if (productDetailsService.title(product.getTitle()).isPresent()) {
             log.warn("Product with title {} already exists", product.getTitle());
             errors.rejectValue("title", "", "Такой товар уже зарегистрирован");
         }
-
         log.debug("Validation completed for product: {}", product);
     }
 }

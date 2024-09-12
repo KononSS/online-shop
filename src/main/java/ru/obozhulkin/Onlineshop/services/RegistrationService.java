@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 public class RegistrationService {
+
     private final PeopleRepository peopleRepository;
     private final PasswordEncoder passwordEncoder;
 

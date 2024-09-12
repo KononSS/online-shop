@@ -6,7 +6,8 @@ create table person
     year_of_birth integer      not null,
     password      varchar      not null,
     phone         char(11)     not null,
-    role          varchar(100) not null
+    role          varchar(100) not null,
+    created_at    timestamp
 );
 
 create table product
@@ -16,12 +17,13 @@ create table product
             primary key,
     title       varchar(255)                                                 not null,
     description text,
-    category varchar                                                      not null,
+    category    varchar                                                      not null,
     price       integer                                                      not null,
     quantity    integer                                                      not null,
-    image   varchar(255)                                                 not null
+    image       varchar(255)                                                 not null,
+    created_at  timestamp,
+    created_who varchar
 );
-
 
 create table person_product
 (
@@ -33,3 +35,5 @@ create table person_product
     product_id integer not null
         references product
 );
+
+

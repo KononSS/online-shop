@@ -10,40 +10,44 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.obozhulkin.Onlineshop.services.PersonDetailsService;
 
-
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PersonDetailsService personDetailsService;
+
     @Autowired
     public SecurityConfig(PersonDetailsService personDetailsService) {
         this.personDetailsService = personDetailsService;
     }
-    @Override
-    protected void configure(HttpSecurity http) throws Exception{
 
-        //Конфигурируем Security
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/adminPage").hasRole("ADMIN")
-                .antMatchers("/auth/login","/auth/registration","/error").permitAll()
-                .anyRequest().hasAnyRole("ADMIN","USER")
+                .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
+                .antMatchers("/api/**").hasRole("ADMIN") // Разрешаем доступ к API для пользователей с ролью ADMIN
+                .anyRequest().hasAnyRole("ADMIN", "USER")
                 .and()
-                //Конфигурируем авторизацию
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/user/hello", true)
                 .failureUrl("/auth/login?error")
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/auth/login");
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/auth/login")
+                .and()
+                .httpBasic()
+                .and()
+                .csrf().ignoringAntMatchers("/api/**");
     }
-    //Настраевает аутентификацию
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(personDetailsService).passwordEncoder(getPasswordEncoder());
     }
+
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
+    public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

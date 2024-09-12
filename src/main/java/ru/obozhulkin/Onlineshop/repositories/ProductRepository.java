@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+
     Optional <Product> findByTitle(String title);
     @Query("select p from Product p where lower(p.title) like lower(concat(:name, '%'))")
     List<Product> findByTitleStartingWith(String name);

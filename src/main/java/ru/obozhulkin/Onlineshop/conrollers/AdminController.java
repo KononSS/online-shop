@@ -62,7 +62,6 @@ public class AdminController {
             log.warn("Validation errors occurred while adding product");
             return "admin/addition";
         }
-
         try {
             if (!file.isEmpty()) {
                 byte[] bytes = file.getBytes();
@@ -71,7 +70,6 @@ public class AdminController {
                 productDTO.setImage("/img/snickers/" + file.getOriginalFilename());
                 log.info("File uploaded successfully: {}", file.getOriginalFilename());
             }
-            // Сохранение сущности в базе данных
             productDetailsService.registerProduct(modelMapper.map(productDTO, Product.class), personDetailsService.authenticatePerson().getPerson().getUsername());
             log.info("Product added successfully: {}", productDTO.getTitle());
         } catch (IOException e) {

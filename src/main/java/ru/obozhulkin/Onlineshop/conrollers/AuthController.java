@@ -49,7 +49,6 @@ public class AuthController {
             log.warn("Validation errors occurred while registering person");
             return "auth/registration";
         }
-
         try {
             registrationService.register(modelMapper.map(personDTO, Person.class));
             log.info("Person registered successfully: {}", personDTO.getUsername());
@@ -58,7 +57,6 @@ public class AuthController {
             bindingResult.reject("registration.error", "Registration error: " + e.getMessage());
             return "auth/registration";
         }
-
         return "redirect:/auth/login";
     }
 }
