@@ -8,22 +8,43 @@ import org.springframework.validation.Validator;
 import ru.obozhulkin.Onlineshop.models.Product;
 import ru.obozhulkin.Onlineshop.services.ProductDetailsService;
 
+/**
+ * Валидатор для продуктов.
+ */
 @Slf4j
 @Component
 public class ProductValidator implements Validator {
 
+    /** Сервис для работы с продуктами. */
     private final ProductDetailsService productDetailsService;
 
+    /**
+     * Конструктор для инициализации зависимостей.
+     *
+     * @param productDetailsService Сервис для работы с продуктами.
+     */
     @Autowired
     public ProductValidator(ProductDetailsService productDetailsService) {
         this.productDetailsService = productDetailsService;
     }
 
+    /**
+     * Проверяет, поддерживается ли валидация для указанного класса.
+     *
+     * @param aClass Класс для проверки.
+     * @return true, если валидация поддерживается, иначе false.
+     */
     @Override
     public boolean supports(Class<?> aClass) {
         return Product.class.equals(aClass);
     }
 
+    /**
+     * Валидирует объект продукта.
+     *
+     * @param o Объект для валидации.
+     * @param errors Объект для хранения ошибок валидации.
+     */
     @Override
     public void validate(Object o, Errors errors) {
         Product product = (Product) o;

@@ -25,26 +25,48 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Контроллер для обработки REST API запросов.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api")
 public class RESTcontroller extends AbstractRestController {
 
+    /** Директория для загрузки файлов. */
     private static final String UPLOAD_DIRECTORY = "src/main/resources/static/img/snickers/";
 
+    /**
+     * Конструктор для инициализации зависимостей.
+     *
+     * @param productDetailsService Сервис для работы с продуктами.
+     * @param personDetailsService Сервис для работы с пользователями.
+     * @param productValidator Валидатор для продуктов.
+     * @param modelMapper Маппер для преобразования объектов.
+     */
     @Autowired
     public RESTcontroller(ProductDetailsService productDetailsService,
-                    PersonDetailsService personDetailsService,
-                    ProductValidator productValidator, ModelMapper modelMapper) {
+                          PersonDetailsService personDetailsService,
+                          ProductValidator productValidator, ModelMapper modelMapper) {
         super(productDetailsService, personDetailsService, productValidator, modelMapper);
     }
 
+    /**
+     * Обрабатывает GET-запрос на приветствие.
+     *
+     * @return Ответ с сообщением приветствия.
+     */
     @GetMapping("/hello")
     public ResponseEntity<String> sayHello() {
         logEndpointAccess("/api/hello");
         return ResponseEntity.ok("Hello from REST API Online-Shop");
     }
 
+    /**
+     * Обрабатывает GET-запрос на получение всех продуктов.
+     *
+     * @return Список DTO продуктов.
+     */
     @GetMapping("/allProducts")
     public List<ProductDTO> getAllProducts() {
         List<Product> products = productDetailsService.findAll();
@@ -55,7 +77,12 @@ public class RESTcontroller extends AbstractRestController {
         return productDTOs;
     }
 
-
+    /**
+     * Обрабатывает DELETE-запрос на удаление продукта.
+     *
+     * @param idProduct Идентификатор продукта для удаления.
+     * @return Статус ответа.
+     */
     @DeleteMapping("/delete/{id}")
     public HttpStatus delete(@PathVariable("id") int idProduct) {
         logEndpointAccess("/api/" + idProduct + " (delete)");
@@ -63,18 +90,38 @@ public class RESTcontroller extends AbstractRestController {
         return HttpStatus.NO_CONTENT;
     }
 
+    /**
+     * Обрабатывает GET-запрос на поиск продуктов.
+     *
+     * @param name Название продукта для поиска.
+     * @return Список найденных продуктов.
+     */
     @GetMapping("/search")
     public List<Product> search(@RequestParam("name") String name) {
         logEndpointAccess("/api/search?name=" + name);
         return productDetailsService.searchByTitle(name);
     }
 
+    /**
+     * Обрабатывает GET-запрос на получение информации о продукте.
+     *
+     * @param id Идентификатор продукта.
+     * @return Ответ с информацией о продукте.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Product> show(@PathVariable("id") int id) {
         logEndpointAccess("/api/" + id + " (show)");
         return ResponseEntity.ok(productDetailsService.findOne(id));
     }
 
+    /**
+     * Обрабатывает POST-запрос на добавление продукта.
+     *
+     * @param productDTO Объект DTO для продукта.
+     * @param bindingResult Результат валидации.
+     * @param file Файл изображения продукта.
+     * @return Ответ с результатом добавления продукта.
+     */
     @PostMapping("/addProduct")
     public ResponseEntity<?> performAddition(@ModelAttribute("product") @Valid ProductDTO productDTO,
                                              BindingResult bindingResult,

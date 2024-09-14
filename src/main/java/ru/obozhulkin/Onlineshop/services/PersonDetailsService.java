@@ -19,25 +19,49 @@ import ru.obozhulkin.Onlineshop.security.PersonDetails;
 import java.util.*;
 
 
+/**
+ * Сервис для работы с пользователями.
+ */
 @Slf4j
 @Service
 public class PersonDetailsService implements UserDetailsService {
 
+    /** Репозиторий для работы с пользователями. */
     private final PeopleRepository peopleRepository;
+
+    /** Репозиторий для работы с продуктами. */
     private final ProductRepository productRepository;
 
+    /**
+     * Конструктор для инициализации зависимостей.
+     *
+     * @param peopleRepository Репозиторий для работы с пользователями.
+     * @param productRepository Репозиторий для работы с продуктами.
+     */
     @Autowired
     public PersonDetailsService(PeopleRepository peopleRepository, ProductRepository productRepository) {
         this.peopleRepository = peopleRepository;
         this.productRepository = productRepository;
     }
 
+    /**
+     * Аутентифицирует текущего пользователя.
+     *
+     * @return Детали аутентифицированного пользователя.
+     */
     public PersonDetails authenticatePerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.debug("Authenticating person: {}", authentication.getName());
         return (PersonDetails) authentication.getPrincipal();
     }
 
+    /**
+     * Находит продукт по идентификатору.
+     *
+     * @param id Идентификатор продукта.
+     * @return Продукт.
+     * @throws ProductNotFoundException Если продукт не найден.
+     */
     public Product product(int id) {
         log.debug("Finding product by id: {}", id);
         return productRepository.findById(id)
@@ -47,6 +71,13 @@ public class PersonDetailsService implements UserDetailsService {
                 });
     }
 
+    /**
+     * Загружает пользователя по имени.
+     *
+     * @param s Имя пользователя.
+     * @return Детали пользователя.
+     * @throws UsernameNotFoundException Если пользователь не найден.
+     */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         log.debug("Loading user by username: {}", s);
@@ -61,11 +92,26 @@ public class PersonDetailsService implements UserDetailsService {
         return new PersonDetails(person.get());
     }
 
+    /**
+     * Находит пользователя по номеру телефона.
+     *
+     * @param phone Номер телефона пользователя.
+     * @return Optional с найденным пользователем.
+     */
     public Optional<Person> showPhone(String phone) {
         log.debug("Finding person by phone: {}", phone);
         return peopleRepository.findByPhone(phone).stream().findAny();
     }
 
+    /**
+     * Добавляет продукт в корзину пользователя.
+     *
+     * @param personId Идентификатор пользователя.
+     * @param productId Идентификатор продукта.
+     * @throws PersonNotFoundException Если пользователь не найден.
+     * @throws ProductNotFoundException Если продукт не найден.
+     * @throws IllegalStateException Если продукт закончился.
+     */
     @Transactional
     public void addBasket(int personId, int productId) {
         log.debug("Adding product {} to basket for person {}", productId, personId);
@@ -92,6 +138,14 @@ public class PersonDetailsService implements UserDetailsService {
         log.debug("Product {} added to basket for person {}", productId, personId);
     }
 
+    /**
+     * Удаляет продукт из корзины пользователя.
+     *
+     * @param personId Идентификатор пользователя.
+     * @param productId Идентификатор продукта.
+     * @throws PersonNotFoundException Если пользователь не найден.
+     * @throws ProductNotFoundException Если продукт не найден.
+     */
     @Transactional
     public void deleteProduct(int personId, int productId) {
         log.debug("Deleting product {} from basket for person {}", productId, personId);
@@ -111,6 +165,13 @@ public class PersonDetailsService implements UserDetailsService {
         log.debug("Product {} deleted from basket for person {}", productId, personId);
     }
 
+    /**
+     * Получает продукты в корзине пользователя.
+     *
+     * @param id Идентификатор пользователя.
+     * @return Список продуктов в корзине.
+     * @throws PersonNotFoundException Если пользователь не найден.
+     */
     public List<Product> getProductByPersonId(int id) {
         log.debug("Getting products for person with id: {}", id);
         Optional<Person> person = peopleRepository.findById(id);

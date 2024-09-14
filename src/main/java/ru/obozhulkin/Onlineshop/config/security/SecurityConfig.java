@@ -10,16 +10,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.obozhulkin.Onlineshop.services.PersonDetailsService;
 
+/**
+ * Конфигурация безопасности для приложения.
+ */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /** Сервис для работы с пользователями. */
     private final PersonDetailsService personDetailsService;
 
+    /**
+     * Конструктор для инициализации зависимостей.
+     *
+     * @param personDetailsService Сервис для работы с пользователями.
+     */
     @Autowired
     public SecurityConfig(PersonDetailsService personDetailsService) {
         this.personDetailsService = personDetailsService;
     }
 
+    /**
+     * Конфигурирует HTTP-безопасность.
+     *
+     * @param http Объект HttpSecurity для конфигурации.
+     * @throws Exception Если возникает ошибка при конфигурации.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -41,11 +56,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().ignoringAntMatchers("/api/**");
     }
 
+    /**
+     * Конфигурирует менеджер аутентификации.
+     *
+     * @param auth Объект AuthenticationManagerBuilder для конфигурации.
+     * @throws Exception Если возникает ошибка при конфигурации.
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(personDetailsService).passwordEncoder(getPasswordEncoder());
     }
 
+    /**
+     * Возвращает кодировщик паролей.
+     *
+     * @return Кодировщик паролей.
+     */
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();

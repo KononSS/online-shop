@@ -9,22 +9,43 @@ import org.springframework.validation.Validator;
 import ru.obozhulkin.Onlineshop.models.Person;
 import ru.obozhulkin.Onlineshop.services.PersonDetailsService;
 
+/**
+ * Валидатор для пользователей.
+ */
 @Slf4j
 @Component
 public class PersonValidator implements Validator {
 
+    /** Сервис для работы с пользователями. */
     private final PersonDetailsService personDetailsService;
 
+    /**
+     * Конструктор для инициализации зависимостей.
+     *
+     * @param personDetailsService Сервис для работы с деталями пользователя.
+     */
     @Autowired
     public PersonValidator(PersonDetailsService personDetailsService) {
         this.personDetailsService = personDetailsService;
     }
 
+    /**
+     * Проверяет, поддерживается ли валидация для указанного класса.
+     *
+     * @param aClass Класс для проверки.
+     * @return true, если валидация поддерживается, иначе false.
+     */
     @Override
     public boolean supports(Class<?> aClass) {
         return Person.class.equals(aClass);
     }
 
+    /**
+     * Валидирует объект пользователя.
+     *
+     * @param o Объект для валидации.
+     * @param errors Объект для хранения ошибок валидации.
+     */
     @Override
     public void validate(Object o, Errors errors) {
         Person person = (Person) o;

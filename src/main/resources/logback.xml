@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <!-- Конфигурация Logback для записи логов в консоль и файл -->
+
+    <!-- Конфигурация для вывода логов в консоль -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
+    <!-- Конфигурация для вывода логов в файл -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>myapp.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -20,6 +24,7 @@
         </encoder>
     </appender>
 
+    <!-- Уровень логирования и прикрепление аппендеров -->
     <root level="debug">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />

@@ -10,19 +10,37 @@ import ru.obozhulkin.Onlineshop.models.Person;
 import ru.obozhulkin.Onlineshop.repositories.PeopleRepository;
 import java.time.LocalDateTime;
 
+/**
+ * Сервис для регистрации пользователей.
+ */
 @Slf4j
 @Service
 public class RegistrationService {
 
+    /** Репозиторий для работы с пользователями. */
     private final PeopleRepository peopleRepository;
+
+    /** Кодировщик паролей. */
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Конструктор для инициализации зависимостей.
+     *
+     * @param peopleRepository Репозиторий для работы с пользователями.
+     * @param passwordEncoder Кодировщик паролей.
+     */
     @Autowired
     public RegistrationService(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
         this.peopleRepository = peopleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Регистрирует нового пользователя.
+     *
+     * @param person Пользователь для регистрации.
+     * @throws RegistrationException Если произошла ошибка при регистрации.
+     */
     @Transactional
     public void register(Person person) {
         log.debug("Registering new user: {}", person);
