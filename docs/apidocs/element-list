@@ -1,0 +1,12 @@
+ru.obozhulkin.Onlineshop
+ru.obozhulkin.Onlineshop.abstractClass
+ru.obozhulkin.Onlineshop.config.security
+ru.obozhulkin.Onlineshop.conrollers
+ru.obozhulkin.Onlineshop.DTO
+ru.obozhulkin.Onlineshop.exeption
+ru.obozhulkin.Onlineshop.models
+ru.obozhulkin.Onlineshop.repositories
+ru.obozhulkin.Onlineshop.REST
+ru.obozhulkin.Onlineshop.security
+ru.obozhulkin.Onlineshop.services
+ru.obozhulkin.Onlineshop.util
