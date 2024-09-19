@@ -13,7 +13,10 @@ import java.util.Collections;
 public class PersonDetails implements UserDetails {
 
     /** Пользователь. */
-    private final Person person;
+    private Person person;
+
+    public PersonDetails(){
+    }
 
     /**
      * Конструктор для инициализации пользователя.

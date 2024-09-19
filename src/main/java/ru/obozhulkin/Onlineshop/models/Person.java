@@ -80,4 +80,16 @@ public class Person {
     public void deleteOfBasket(Product product) {
         basket.remove(product);
     }
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", yearOfBirth=" + yearOfBirth +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role='" + role + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

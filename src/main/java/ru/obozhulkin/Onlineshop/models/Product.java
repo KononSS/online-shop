@@ -84,4 +84,18 @@ public class Product {
     public void addBuyer(Person buyer) {
         buyers.add(buyer);
     }
+    @Override
+    public String toString() {
+        return "Product{" +
+                "product_id=" + product_id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", image='" + image + '\'' +
+                ", createdAt=" + createdAt +
+                ", createdWho='" + createdWho + '\'' +
+                '}';
+    }
 }
