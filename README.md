@@ -29,13 +29,18 @@
 
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.datasource.url=jdbc:postgresql://localhost:5432/online-shop_db
-spring.datasource.username=**ВАШИ ДАННЫЕ**
-spring.datasource.password=**ВАШИ ДАННЫЕ**
+spring.datasource.username=postgres
+spring.datasource.password=postgre
 
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.properties.hibernate.show_sql=true
 
-Выполните код из файла: src/main/java/ru/obozhulkin/Onlineshop/sql/db.sql
+Запуск миграций с использованием Liquibase
+Убедитесь, что у вас установлен Maven.
+Выполните следующую команду в корне проекта:
+mvn liquibase:update
+Убедитесь, что база данных настроена и миграции выполнены успешно.
+Также необходимы sql находится в :src/main/java/ru/obozhulkin/Onlineshop/sql/db.sql 
 
 3. **Запустите приложение:**
 
