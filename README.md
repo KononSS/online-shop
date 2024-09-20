@@ -34,6 +34,7 @@ spring.datasource.password=postgre
 
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.properties.hibernate.show_sql=true
+spring.liquibase.change-log=classpath:/db/changelog/db.changelog-master.xml
 
 Запуск миграций с использованием Liquibase
 Убедитесь, что у вас установлен Maven.
