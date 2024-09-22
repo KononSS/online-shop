@@ -52,14 +52,12 @@
     <p class="lead">Заполните поля и нажмите кнопку 'Добавить товар'</p>
   </div>
 
-  <form enctype="multipart/form-data" action="#" th:action="@{/admin/addProduct}" th:object="${product}" method="post" class="needs-validation"
-        novalidate>
+  <form enctype="multipart/form-data" action="#" th:action="@{/admin/addProduct}" th:object="${product}" method="post" class="needs-validation" novalidate>
     <div class="row">
       <div class="col-md-12">
         <h4 class="mb-3">Поля для заполнения</h4>
 
         <div class="row">
-
           <div class="col-md-4 mb-3">
             <label for="title">Введите название продукта:</label>
             <input th:field="*{title}" type="text" class="form-control" id="title" placeholder="" value="" required>
@@ -71,9 +69,11 @@
             <small class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"/>
           </div>
           <div class="col-md-4 mb-3">
-            <label for="category">Введите категорию:</label>
-            <input th:field="*{category}" type="text" class="form-control" id="category" placeholder="" value="" required>
-            <small class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"/>
+            <label for="category">Выберите категорию:</label>
+            <select th:field="*{categoryName}" class="form-control" id="category" required>
+              <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}" th:selected="${category.name == product.categoryName}"></option>
+            </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"/>
           </div>
           <div class="col-md-4 mb-3">
             <label for="price">Введите стоимость:</label>
@@ -88,12 +88,8 @@
           <div class="col-md-4 mb-3">
             <label for="img">Загрузите картинку:</label>
             <input type="file" class="form-control-file" id="img" name="img" accept="image/*" required>
+            <small class="text-danger" th:if="${#fields.hasErrors('img')}" th:errors="*{img}"/>
           </div>
-<!--          <div class="col-md-4 mb-3">-->
-<!--            <label for="image">Введите url адрес картинки:</label>-->
-<!--            <input th:field="*{image}" type="text" class="form-control" id="image_url" placeholder="" value="" required>-->
-<!--            <small class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image_url}"/>-->
-<!--          </div>-->
         </div>
         <hr class="mb-4">
         <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">Добавить товар</button>

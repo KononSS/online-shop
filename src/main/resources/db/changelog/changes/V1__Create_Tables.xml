@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="1" author="KononSS">
+        <!-- Создание таблицы category -->
+        <createTable tableName="category">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <!-- Создание таблицы person -->
+        <createTable tableName="person">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year_of_birth" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="char(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp"/>
+        </createTable>
+
+        <!-- Создание таблицы product -->
+        <createTable tableName="product">
+            <column name="product_id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text"/>
+            <column name="category_id" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_product_category" references="category(id)"/>
+            </column>
+            <column name="price" type="numeric(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="integer">
+                <constraints nullable="false" checkConstraint="quantity >= 0"/>
+            </column>
+            <column name="image" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp"/>
+            <column name="created_who" type="varchar"/>
+        </createTable>
+
+        <!-- Создание таблицы person_product -->
+        <createTable tableName="person_product">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="person_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Добавление внешних ключей -->
+        <addForeignKeyConstraint baseTableName="person_product" baseColumnNames="person_id"
+                                 referencedTableName="person" referencedColumnNames="id"
+                                 constraintName="fk_person_product_person" onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint baseTableName="person_product" baseColumnNames="product_id"
+                                 referencedTableName="product" referencedColumnNames="product_id"
+                                 constraintName="fk_person_product_product"/>
+    </changeSet>
+</databaseChangeLog>

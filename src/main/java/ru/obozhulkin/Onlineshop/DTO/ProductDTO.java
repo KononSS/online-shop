@@ -1,11 +1,9 @@
 package ru.obozhulkin.Onlineshop.DTO;
 
 import lombok.Data;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 
 /**
  * DTO для представления продукта.
@@ -24,16 +22,21 @@ public class ProductDTO {
 
     /** Категория продукта. */
     @NotEmpty(message = "Введите категорию товара")
-    private String category;
+    private String categoryName;
 
     /** Цена продукта. */
+    @NotNull(message = "Введите стоимость")
     @Min(value = 1, message = "Стоимость не ниже 1")
     @Max(value = 1000000, message = "Стоимость не выше 1000000")
-    private int price;
+    private BigDecimal price;
 
     /** Количество продукта. */
     private int quantity;
 
     /** Относительный адрес изображения продукта. */
     private String image;
+
+    /** Файл изображения продукта. */
+    private MultipartFile img;
+
 }

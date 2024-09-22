@@ -67,9 +67,9 @@
     <br/>
 
     <div class="list-group">
-        <a th:each="product : ${product}" th:href="@{/user/{id}(id=${product.getProduct_id()})}" class="list-group-item list-group-item-action">
-                <img th:src="@{${product.image}}" class="img-fluid product-image" alt="картинка">
-            <span th:text="${product.getTitle() + ', ' + product.getCategory() + ', ' + product.getPrice()}"/>
+        <a th:each="product : ${product}" th:if="${product.quantity > 0}" th:href="@{/user/{id}(id=${product.getProduct_id()})}" class="list-group-item list-group-item-action">
+            <img th:src="@{${product.image}}" class="img-fluid product-image" alt="картинка">
+            <span th:text="${product.getTitle() + ', ' + product.getCategoryName() + ', ' + product.getPrice()}"/>
         </a>
     </div>
 </div>

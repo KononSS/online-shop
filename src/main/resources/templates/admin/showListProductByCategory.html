@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        .product-image {
+            width: 100px; /* Задайте нужную ширину */
+            height: 100px; /* Задайте нужную высоту */
+            object-fit: cover; /* Это свойство позволяет масштабировать изображение, сохраняя пропорции */
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, bayer!</title>
+</head>
+<body class="bg-light"
+      style="background-size: 100%; background-image: url('https://masterpiecer-images.s3.yandex.net/468a3ba662fc11efac1666e14819989e:1https://i.pinimg.com/originals/1c/db/aa/1cdbaa8026a2490c5350c9083596a13f.jpg');" >
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span class="navbar-brand" style="font-size: 2em;">𝔼𝕒𝕫𝕪 𝕊𝕟𝕚𝕔𝕜𝕖𝕣𝕤</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user/hello">Главная<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/user/catalog">Каталог<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" href="/admin/adminPage">Админ<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Профиль</a>
+            </li>
+
+        </ul>
+        <form class="form-inline mt-2 mt-md-0" action="/user/basket" method="get">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Корзина</button>
+        </form>
+        <form class="form-inline mt-2 mt-md-0" th:action="@{/logout}" th:method="POST">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выход</button>
+        </form>
+
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>Список кроссовок, относящихся к выбранной категории</h2>
+    </div>
+
+    <br/>
+
+    <div class="list-group">
+        <a th:each="product : ${product}" th:href="@{/user/{id}(id=${product.getProduct_id()})}" class="list-group-item list-group-item-action">
+            <div class="row">
+                <div class="col-md-2">
+                    <img th:src="@{${product.image}}" class="img-fluid product-image" alt="картинка">
+                </div>
+                <div class="col-md-8">
+                    <span th:text="${'Название: ' + product.getTitle() + ', категория: ' + product.getCategoryName() + ', цена: ' + product.getPrice() + ', колличество: ' + product.getQuantity}"/>
+                </div>
+                <div class="col-md-2">
+                    <form th:action="@{/admin/delete/{id}(id=${product.getProduct_id()})}" th:method="post">
+                        <button type="submit" class="btn btn-danger">Удалить продукт</button>
+                    </form>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

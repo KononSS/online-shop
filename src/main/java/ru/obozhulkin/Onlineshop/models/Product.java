@@ -3,10 +3,8 @@ package ru.obozhulkin.Onlineshop.models;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -38,22 +36,26 @@ public class Product {
     private String description;
 
     /** Категория продукта. */
-    @NotEmpty(message = "Введите категорию товара")
-    @Column(name = "category")
-    private String category;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    public String getCategoryName() {
+        return getCategory().getName();
+    }
 
     /** Цена продукта. */
     @Column(name = "price")
-    @Min(value = 1, message = "Стоимость не ниже 1")
-    @Max(value = 1000000, message = "Стоимость не выше 1000000")
-    private int price;
+    private BigDecimal price;
 
     /** Количество продукта. */
     @Column(name = "quantity")
+    @Min(value = 0, message = "Колличество не может быть отрицательным")
     private int quantity;
 
     /** Относительный адрес изображение продукта. */
     @Column(name = "image")
+    @NotEmpty(message = "Загрузите картинку")
     private String image;
 
     /** Список покупателей продукта. */

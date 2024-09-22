@@ -9,6 +9,7 @@ import ru.obozhulkin.Onlineshop.exeption.ProductNotFoundException;
 import ru.obozhulkin.Onlineshop.models.Product;
 import ru.obozhulkin.Onlineshop.services.PersonDetailsService;
 import ru.obozhulkin.Onlineshop.services.ProductDetailsService;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -72,7 +73,8 @@ public class GeneralController {
                 authenticatePerson().getPerson().getId());
         model.addAttribute("basket", basket);
         model.addAttribute("totalSum", basket.stream()
-                .mapToDouble(Product::getPrice)
+                .map(Product::getPrice)
+                        .mapToDouble(BigDecimal::doubleValue)
                 .sum());
         return "user/basket";
     }
