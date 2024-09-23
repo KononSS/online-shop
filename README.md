@@ -86,7 +86,8 @@ GET /api/search: Поиск товаров по названию.
 GET /api/{id}: Получить информацию о конкретном товаре.
 
 POST /api/addProduct: Добавить новый товар. (Для добавления картинки используйте ключ "img" тип файл.)
-Пример:!![img_1.png](img_1.png)
+Пример:![image](https://github.com/user-attachments/assets/b56ccb20-5c37-4361-80e2-7664016b6f3c)
+
 
 DELETE /api/delete/{id}: Удалить товар. 
 
