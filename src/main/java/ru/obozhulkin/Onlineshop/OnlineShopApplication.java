@@ -1,9 +1,12 @@
 package ru.obozhulkin.Onlineshop;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import ru.obozhulkin.Onlineshop.DTO.ProductDTO;
+import ru.obozhulkin.Onlineshop.models.Product;
 
 /**
  * Основной класс приложения Online Shop.
@@ -28,6 +31,13 @@ public class OnlineShopApplication {
 	 */
 	@Bean
 	public ModelMapper modelMapper() {
-		return new ModelMapper();
+		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.addMappings(new PropertyMap<Product, ProductDTO>() {
+			@Override
+			protected void configure() {
+				map().setCategoryName(source.getCategory().getName());
+			}
+		});
+		return modelMapper;
 	}
 }

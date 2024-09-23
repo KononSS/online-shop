@@ -92,7 +92,7 @@ public class Product {
                 "product_id=" + product_id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", category='" + category + '\'' +
+                ", category=" + (category != null ? category.getId() + " (" + category.getName() + ")" : "null") +
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", image='" + image + '\'' +

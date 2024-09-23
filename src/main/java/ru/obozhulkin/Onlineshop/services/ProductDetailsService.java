@@ -70,9 +70,27 @@ public class ProductDetailsService {
     @Transactional
     public void registerProduct(Product product, String adminName) {
         log.debug("Registering product: {}", product);
-        enrichProduct(product, adminName);
-        productRepository.save(product);
-        log.debug("Product registered: {}", product);
+        try {
+            enrichProduct(product, adminName);
+            Category category = product.getCategory();
+
+            // Проверяем, существует ли уже категория с таким именем
+            Optional<Category> existingCategoryOptional = categoryRepository.findByName(category.getName());
+            if (existingCategoryOptional.isPresent()) {
+                log.debug("Category already exists with name: {}", category.getName());
+                product.setCategory(existingCategoryOptional.get());
+            } else {
+                log.debug("Category does not exist, saving new category: {}", category);
+                categoryRepository.save(category);
+            }
+
+            productRepository.save(product);
+            log.debug("Product registered: {}", product);
+
+        } catch (Exception e) {
+            log.error("Failed to register product: {}", e.getMessage(), e);
+            throw new RuntimeException("Failed to register product", e);
+        }
     }
 
     /**

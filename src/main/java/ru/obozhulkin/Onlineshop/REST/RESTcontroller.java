@@ -68,13 +68,13 @@ public class RESTcontroller extends AbstractRestController {
      * @return Список DTO продуктов.
      */
     @GetMapping("/allProducts")
-    public List<ProductDTO> getAllProducts() {
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
         List<Product> products = productDetailsService.findAll();
         List<ProductDTO> productDTOs = products.stream()
                 .map(product -> modelMapper.map(product, ProductDTO.class))
                 .collect(Collectors.toList());
         logEndpointAccess("/api/allProducts");
-        return productDTOs;
+        return ResponseEntity.ok(productDTOs);
     }
 
     /**
@@ -84,10 +84,10 @@ public class RESTcontroller extends AbstractRestController {
      * @return Статус ответа.
      */
     @DeleteMapping("/delete/{id}")
-    public HttpStatus delete(@PathVariable("id") int idProduct) {
+    public ResponseEntity<Void> delete(@PathVariable("id") int idProduct) {
         logEndpointAccess("/api/" + idProduct + " (delete)");
         productDetailsService.delete(idProduct);
-        return HttpStatus.NO_CONTENT;
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -97,9 +97,13 @@ public class RESTcontroller extends AbstractRestController {
      * @return Список найденных продуктов.
      */
     @GetMapping("/search")
-    public List<Product> search(@RequestParam("name") String name) {
+    public ResponseEntity<List<ProductDTO>> search(@RequestParam("name") String name) {
         logEndpointAccess("/api/search?name=" + name);
-        return productDetailsService.searchByTitle(name);
+        List<Product> products = productDetailsService.searchByTitle(name);
+        List<ProductDTO> productDTOs = products.stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(productDTOs);
     }
 
     /**
@@ -111,7 +115,8 @@ public class RESTcontroller extends AbstractRestController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> show(@PathVariable("id") int id) {
         logEndpointAccess("/api/" + id + " (show)");
-        return ResponseEntity.ok(productDetailsService.findOne(id));
+        Product product = productDetailsService.findOne(id);
+        return ResponseEntity.ok(product);
     }
 
     /**
